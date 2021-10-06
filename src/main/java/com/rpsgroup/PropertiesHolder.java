@@ -15,6 +15,7 @@ public class PropertiesHolder {
 	public String downloadDirectory;
 	public String storageDirectory;
 	public String jnaLibDirectory;
+	public int storageMaxCount;
 	
 	public PropertiesHolder() {
 		
@@ -39,6 +40,7 @@ public class PropertiesHolder {
 		downloadDirectory = getProp("directory.download");
 		storageDirectory = getProp("directory.storage");
 		jnaLibDirectory = getProp("directory.jna.lib");
+		storageMaxCount = Integer.parseInt(getProp("directory.storage.maxcount"));
 		
 	}
 	

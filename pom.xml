@@ -6,10 +6,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.rpsgroup</groupId>
-	<artifactId>lis_fvcom_harvest</artifactId>
+	<artifactId>dods-harvester</artifactId>
 	<version>1.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
 
-	<name>lis_fvcom_harvest</name>
+	<name>dods-harvester</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -81,10 +82,6 @@
 				<plugin>
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>2.22.1</version>
-				</plugin>
-				<plugin>
-					<artifactId>maven-jar-plugin</artifactId>
-					<version>3.0.2</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-install-plugin</artifactId>

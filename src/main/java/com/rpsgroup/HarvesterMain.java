@@ -6,6 +6,7 @@ import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -26,6 +27,7 @@ public class HarvesterMain {
 	public static void main(String[] args) throws MalformedURLException, Exception {
 		
 		HarvesterMain runner = new HarvesterMain();	
+		File dodsFile = null;
 		
 		try {
 			runner.converter.setProps(props);
@@ -44,20 +46,25 @@ public class HarvesterMain {
 			Boolean firstRun = mostRecentLocal.compareTo(new Date(0L)) == 0;
 			
 			if (remoteModTime.after(mostRecentLocal) || firstRun) {
+				runner.log.info("Downloading latest data...");
 				
-				File dodsFile = runner.http.downloadDods();
+				dodsFile = runner.http.downloadDods();
 				runner.log.info("Downloaded .dods file: " + dodsFile.toString());
 				
 				File netcdf = runner.file.getNC4Outfile();
 				runner.converter.convert(dodsFile, netcdf);
 				
-				runner.log.info("Converted .dods to netCDF4: " + netcdf.toString());
-				Files.delete(dodsFile.toPath());
-				
-				runner.log.info("Deleted .dods file");
+				runner.log.info("Converted .dods to netCDF4: " + netcdf.toString());				
+				while (runner.file.getFileCount() > props.storageMaxCount) {	
+					
+					Path oldest = runner.file.getOldestFile().toPath();
+					runner.log.info("Exceeded storage max count, deleting oldest: " + oldest);
+					
+					Files.delete(oldest);
+				}
 				
 			} else {
-				runner.log.info("Nothing to do here, we have latest data. Goodbye.");
+				runner.log.info("Nothing to do here, we have latest data.");
 			}
 		
 		} catch (Exception ex) {
@@ -67,6 +74,14 @@ public class HarvesterMain {
 			
 			ex.printStackTrace(pw);
 			runner.log.error(sw.toString());
+		
+		} finally {
+			
+			if (dodsFile != null) {
+				Files.delete(dodsFile.toPath());
+				runner.log.info("Deleted .dods file");
+			}
+			runner.log.info("Done.");
 		}
 		
 		// 4. Run compliance checks.
