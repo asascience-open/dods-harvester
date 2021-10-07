@@ -64,24 +64,14 @@ public class FileManager {
 		return dataDir.listFiles(filter).length;
 	}
 	
-	
 	public void setProps(PropertiesHolder props) {
 		this.props = props;
 	}
 	
-	public File getDodsOutfile() {
-		
-		return new File(
-				new File(props.downloadDirectory),
-				Long.toString(Instant.now().getEpochSecond()) +  "_" + props.dodsFilename);
-	}
-	
 	public File getNC4Outfile() {
-		String ncname = props.dodsFilename.replace(".dods", "");
-		
 		return new File(
 				new File(props.storageDirectory),
-				Long.toString(Instant.now().getEpochSecond()) +  "_" + ncname);
+				Long.toString(Instant.now().getEpochSecond()) +  "_" + props.ncFilename);
 	}
 	
 }

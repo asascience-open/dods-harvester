@@ -1,6 +1,5 @@
 package com.rpsgroup;
 
-import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
@@ -18,25 +17,31 @@ public class HarvesterMain {
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz");
 	private static final PropertiesHolder props = new PropertiesHolder();
 	
-	private DodsToNetcdf4Converter converter = new DodsToNetcdf4Converter();
 	private HttpHandler http = new HttpHandler();
 	
 	private FileManager file = new FileManager();
 	private Logger log = LoggerFactory.getLogger(HarvesterMain.class);
 	
 	public static void main(String[] args) throws MalformedURLException, Exception {
+		run(props.ncUrl);
+	}
+	
+	private String getNcCopyCommand(String url) {
+		return props.ncCopyCommand + " " + url + " " + file.getNC4Outfile().toString();
+	}
+	
+	private static void run(String url) throws MalformedURLException, Exception {
 		
 		HarvesterMain runner = new HarvesterMain();	
-		File dodsFile = null;
 		
 		try {
-			runner.converter.setProps(props);
-			runner.http.setProps(props);
 			runner.file.setProps(props);
+			runner.http.setProps(props);
 			
 			runner.http.setFileManager(runner.file);
 			runner.http.setDateFormat(sdf);
 			
+			// Why dods url? It accepts HEAD requests and returns last-mod time, others don't.
 			Date remoteModTime = runner.http.getLastModified(new URL(props.dodsURL));
 			Date mostRecentLocal = runner.file.getMostRecentDataTime();
 			
@@ -48,13 +53,17 @@ public class HarvesterMain {
 			if (remoteModTime.after(mostRecentLocal) || firstRun) {
 				runner.log.info("Downloading latest data...");
 				
-				dodsFile = runner.http.downloadDods();
-				runner.log.info("Downloaded .dods file: " + dodsFile.toString());
+				String command = runner.getNcCopyCommand(url);
+				Process copyProc = Runtime.getRuntime().exec(command);
 				
-				File netcdf = runner.file.getNC4Outfile();
-				runner.converter.convert(dodsFile, netcdf);
+				int exitCode = copyProc.waitFor();
 				
-				runner.log.info("Converted .dods to netCDF4: " + netcdf.toString());				
+				if (exitCode != 0) {
+					runner.log.error("Fatal Error execing '" + command + "'. Exit code: " + Integer.toString(exitCode));
+				} else {
+					runner.log.info("Successfully exec'd '" + command + "'.");
+				}
+				
 				while (runner.file.getFileCount() > props.storageMaxCount) {	
 					
 					Path oldest = runner.file.getOldestFile().toPath();
@@ -77,10 +86,6 @@ public class HarvesterMain {
 		
 		} finally {
 			
-			if (dodsFile != null) {
-				Files.delete(dodsFile.toPath());
-				runner.log.info("Deleted .dods file");
-			}
 			runner.log.info("Done.");
 		}
 		

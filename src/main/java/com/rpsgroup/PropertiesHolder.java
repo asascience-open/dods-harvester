@@ -10,11 +10,11 @@ public class PropertiesHolder {
 	private InputStream propIs;
 	
 	public String dodsURL;
-	public String dodsFilename;
 	public String ncFilename;
-	public String downloadDirectory;
+	public String ncUrl;
+	public String ncCopyCommand;
 	public String storageDirectory;
-	public String jnaLibDirectory;
+//	public String jnaLibDirectory;
 	public int storageMaxCount;
 	
 	public PropertiesHolder() {
@@ -34,12 +34,14 @@ public class PropertiesHolder {
 		}
 		
 		dodsURL = getProp("dods.url");
-		dodsFilename = getProp("dods.filename");
-		ncFilename = getProp("nc.filename");
 		
-		downloadDirectory = getProp("directory.download");
+		ncFilename = getProp("nc.filename");
+		ncUrl = getProp("nc.url");
+		
+		ncCopyCommand = getProp("nc.copy.cmd");
 		storageDirectory = getProp("directory.storage");
-		jnaLibDirectory = getProp("directory.jna.lib");
+		
+//		jnaLibDirectory = getProp("directory.jna.lib");
 		storageMaxCount = Integer.parseInt(getProp("directory.storage.maxcount"));
 		
 	}
