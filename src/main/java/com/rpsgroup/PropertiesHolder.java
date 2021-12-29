@@ -14,7 +14,7 @@ public class PropertiesHolder {
 	public String ncUrl;
 	public String ncCopyCommand;
 	public String storageDirectory;
-//	public String jnaLibDirectory;
+	public String jnaLibDirectory;
 	public int storageMaxCount;
 	
 	public PropertiesHolder() {
@@ -41,7 +41,7 @@ public class PropertiesHolder {
 		ncCopyCommand = getProp("nc.copy.cmd");
 		storageDirectory = getProp("directory.storage");
 		
-//		jnaLibDirectory = getProp("directory.jna.lib");
+		jnaLibDirectory = getProp("directory.jna.lib");
 		storageMaxCount = Integer.parseInt(getProp("directory.storage.maxcount"));
 		
 	}

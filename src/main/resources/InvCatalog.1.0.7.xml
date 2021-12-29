@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog xmlns="http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0"
+	 schemaLocation="https://schemas.unidata.ucar.edu/thredds/InvCatalog.1.0.7.xsd"
+	 xmlns:xlink="http://www.w3.org/1999/xlink"
+	 xmlns:xi="http://www.w3.org/2001/XInclude"
+	 name="IOOS EDS - Chesapeake Bay Operational Forecast System (CBOFS)">
+    <dataset name="Chesapeake Bay Operational Forecast System (CBOFS)">
+        <metadata inherited="true">
+            <serviceName>all</serviceName>
+            <property name="viewer" value="https://eds.ioos.us, EDS Model Viewer"/>
+        </metadata>
+        <!-- CBOFS Forecast -->
+        <featureCollection name="CBOFS Forecast Fields" featureType="FMRC" path="ioos/ofs/cbofs/forecast/fields">
+
+	    <collection spec="s3://ioos-eds-dev.s3.amazonaws.com/nos.cbofs.fields.f.#yyyyMMddHH#\.f00[1-3]\.nc$" />
+
+            <fmrcConfig regularize="false" datasetTypes="TwoD Best Files Runs ConstantForecasts ConstantOffsets" xml:base="partials/collection_fmrc.xml"/><filesSort increasing="false" xml:base="partials/collection_fmrc.xml"/><update startup="nocheck" trigger="false" xml:base="partials/collection_fmrc.xml"/>
+            <netcdf xmlns="http://www.unidata.ucar.edu/namespaces/netcdf/ncml-2.2" xml:base="partials/roms_collection_inner.xml">
+	        <dimension name="time" orgName="ocean_time"/>
+        	<!-- confuses time coordinates -->
+        	<remove name="dstart" type="variable"/>
+    	    </netcdf>
+            <protoDataset choice="Penultimate">
+                <netcdf xmlns="http://www.unidata.ucar.edu/namespaces/netcdf/ncml-2.2">
+                    <attribute name="title" value="Chesapeake Bay Operational Forecast System (CBOFS): Forecast - Fields"/>
+                    <attribute name="summary" value="The wind data used to run CBOFS are based on the National Weather Service (NWS)/Real Time Mesoscale Analysis (RTMA) winds (for the nowcast) and an interpolation of the NWS North American Mesoscale (NAM)-12 atmospheric forecast model data (for the forecast). The NWS Global Forecasting System winds serve as backup winds for both the nowcast and forecast runs. Additionally, CBOFS relies on Extratropical Storm Surge forecasts, CO-OPS' real-time water level, temperature and salinity observations, USGS river data, and the Global Real-Time Ocean Forecast System. The new CBOFS grid has 332 x 291 points in the horizontal. The finest grid resolutions in the x- and y- directions are 34m and 29m, respectively, and the coarsest resolutions are 4895m and 3380m, respectively. The vertical grid follows the terrain and consists of 20 model levels. The CBOFS model domain was designed to include the whole of the Chesapeake Bay and a piece of the shelf to allow a realistic interaction between the shelf and the entrance to the Bay. The CBOFS grid and spatial extent is indicated above. The bathymetry of the Chesapeake Bay is indicated below. Note that the greatest resolution of the CBOFS grid corresponds with the major channels of the bay. CBOFS runs on NOAA's High Performance Computers (HPC) in a new Coastal Ocean Modeling Framework (COMF) developed by CO-OPS. As a result, CBOFS has direct access to NWS operational meteorological products that it needs to run reliably. Nowcast and forecast guidance cycles are run 4 times a day (every 6 hours)."/>
+                    <attribute name="project" value="NOAA/NOS/CO-OPS"/>
+                    <attribute name="institution" value="NOAA/NOS/CO-OPS"/>
+                    <attribute name="acknowledgement" value="All products from the National Ocean Service"/>
+                    <attribute name="info_url" value="https://tidesandcurrents.noaa.gov/ofs/cbofs/cbofs_info.html"/>
+                    <attribute name="geospatial_lat_min" value="36.19036"/>
+                    <attribute name="geospatial_lat_max" value="39.61182"/>
+                    <attribute name="geospatial_lat_max" value="39.61182"/>
+                    <attribute name="geospatial_lat_resolution" value="0.00036 degree_north"/>
+                    <attribute name="geospatial_lat_units" value="degree_north"/>
+                    <attribute name="geospatial_lon_min" value="-81.17436"/>
+                    <attribute name="geospatial_lon_max" value="-74.23078"/>
+                    <attribute name="geospatial_lon_resolution" value="0.00758 degree_east"/>
+                    <attribute name="geospatial_lon_units" value="degree_east"/>
+                    <attribute name="platform_vocabulary" value="GCMD Platform Keywords" xml:base="partials/global_attributes.xml"/><attribute name="standard_name_vocabulary" value="CF Standard Name Table v69" xml:base="partials/global_attributes.xml"/><attribute name="Conventions" value="CF-1.7, ACDD-1.3, IOOS-1.2" xml:base="partials/global_attributes.xml"/><attribute name="license" value="These data may be redistributed and used without restriction. " xml:base="partials/global_attributes.xml"/><attribute name="keywords_vocabulary" value="Global Change Master Directory (GCMD) Earth Science Keywords; CF Standard Name Table (v69, 15 October 2019)" xml:base="partials/global_attributes.xml"/><attribute name="naming_authority" value="us.ioos.eds" xml:base="partials/global_attributes.xml"/>
+                    <attribute name="publisher_name" value="U.S. Integrated Ocean Observing System (IOOS)" xml:base="partials/publisher_ioos.xml"/><attribute name="publisher_email" value="data.ioos@noaa.gov" xml:base="partials/publisher_ioos.xml"/><attribute name="publisher_address" value="1315 East-West Highway" xml:base="partials/publisher_ioos.xml"/><attribute name="publisher_city" value="Silver Spring" xml:base="partials/publisher_ioos.xml"/><attribute name="publisher_zipcode" value="20910" xml:base="partials/publisher_ioos.xml"/><attribute name="publisher_state" value="Maryland" xml:base="partials/publisher_ioos.xml"/><attribute name="publisher_country" value="USA" xml:base="partials/publisher_ioos.xml"/><attribute name="publisher_phone" value="(240) 533-9444" xml:base="partials/publisher_ioos.xml"/><attribute name="publisher_type" value="institution" xml:base="partials/publisher_ioos.xml"/><attribute name="publisher_url" value="http://ioos.noaa.gov" xml:base="partials/publisher_ioos.xml"/>
+
+                    <attribute name="Conventions" value="CF-1.7, ACDD-1.3, IOOS-1.2" xml:base="partials/roms_attributes_global.xml"/><attribute name="keywords" value="Oceans &gt; Ocean Circulation &gt; Ocean Currents, eastward_sea_water_velocity, northward_sea_water_velocity, upward_sea_water_velocity" xml:base="partials/roms_attributes_global.xml"/><attribute name="source" value="ROMS" xml:base="partials/roms_attributes_global.xml"/><attribute name="platform" value="Models/Analyses &gt; &gt; Operational Models" xml:base="partials/roms_attributes_global.xml"/><attribute name="platform_vocabulary" value="GCMD Platform Keywords" xml:base="partials/roms_attributes_global.xml"/><attribute name="featureType" value="grid" xml:base="partials/roms_attributes_global.xml"/><attribute name="cdm_data_type" value="Grid" xml:base="partials/roms_attributes_global.xml"/><attribute name="processing_level" value="forecast_model" xml:base="partials/roms_attributes_global.xml"/>
+                    <variable name="angle" xml:base="partials/roms_attributes_variables.xml">
+        <attribute name="standard_name" type="String" value="angle_of_rotation_from_east_to_x"/>
+        <attribute name="coverage_content_type" type="String" value="modelResult"/>
+    </variable><variable name="f" xml:base="partials/roms_attributes_variables.xml">
+        <attribute name="standard_name" type="String" value="coriolis_parameter"/>
+        <attribute name="coverage_content_type" type="String" value="modelResult"/>
+    </variable><variable name="h" xml:base="partials/roms_attributes_variables.xml">
+        <attribute name="standard_name" type="String" value="sea_floor_depth_below_geoid"/>
+        <attribute name="coverage_content_type" type="String" value="modelResult"/>
+    </variable><variable name="Pair" xml:base="partials/roms_attributes_variables.xml">
+        <attribute name="standard_name" type="String" value="air_pressure_at_mean_sea_level"/>
+        <attribute name="coverage_content_type" type="String" value="modelResult"/>
+    </variable><variable name="salt" xml:base="partials/roms_attributes_variables.xml">
+        <attribute name="standard_name" type="String" value="sea_water_salinity"/>
+        <attribute name="units" type="String" value="1e-3"/>
+        <attribute name="coverage_content_type" type="String" value="modelResult"/>
+    </variable><variable name="temp" xml:base="partials/roms_attributes_variables.xml">
+        <attribute name="standard_name" type="String" value="air_potential_temperature"/>
+        <attribute name="coverage_content_type" type="String" value="modelResult"/>
+    </variable><variable name="u" xml:base="partials/roms_attributes_variables.xml">
+        <attribute name="standard_name" type="String" value="eastward_sea_water_velocity"/>
+        <attribute name="coverage_content_type" type="String" value="modelResult"/>
+    </variable><variable name="v" xml:base="partials/roms_attributes_variables.xml">
+        <attribute name="standard_name" type="String" value="northward_sea_water_velocity"/>
+        <attribute name="coverage_content_type" type="String" value="modelResult"/>
+    </variable><variable name="w" xml:base="partials/roms_attributes_variables.xml">
+        <attribute name="standard_name" type="String" value="upward_sea_water_velocity"/>
+        <attribute name="coverage_content_type" type="String" value="modelResult"/>
+    </variable><variable name="zeta" xml:base="partials/roms_attributes_variables.xml">
+        <attribute name="standard_name" type="String" value="sea_surface_height_above_geoid"/>
+        <attribute name="coverage_content_type" type="String" value="modelResult"/>
+    </variable><variable name="Uwind" xml:base="partials/roms_attributes_variables.xml">
+        <attribute name="standard_name" type="String" value="eastward_wind"/>
+        <attribute name="coverage_content_type" type="String" value="modelResult"/>
+    </variable><variable name="Vwind" xml:base="partials/roms_attributes_variables.xml">
+        <attribute name="standard_name" type="String" value="northward_wind"/>
+        <attribute name="coverage_content_type" type="String" value="modelResult"/>
+    </variable>
+                    <remove name="ocean_time" type="variable" xml:base="partials/roms_collection_outer.xml"/>
+                </netcdf>
+            </protoDataset>
+        </featureCollection>
+        <!-- CBOFS Nowcast -->
+        <featureCollection name="CBOFS Nowcast Fields" featureType="FMRC" path="ioos/ofs/cbofs/nowcast/fields">
+			<!--<collection spec="s3fs:ioos-eds/nos.cbofs.fields.n/.*\.nc$" dateFormatMark="#nos.cbofs.fields.n.#yyyyMMddHH"/>-->
+			<collection spec="/data/ioos-eds/nos.cbofs.fields.n/.*\.nc$" dateFormatMark="#nos.cbofs.fields.n.#yyyyMMddHH"/>
+            <fmrcConfig regularize="false" datasetTypes="TwoD Best Files Runs ConstantForecasts ConstantOffsets" xml:base="partials/collection_fmrc.xml"/><filesSort increasing="false" xml:base="partials/collection_fmrc.xml"/><update startup="nocheck" trigger="false" xml:base="partials/collection_fmrc.xml"/>
+            <netcdf xmlns="http://www.unidata.ucar.edu/namespaces/netcdf/ncml-2.2" xml:base="partials/roms_collection_inner.xml">
+        <dimension name="time" orgName="ocean_time"/>
+        <!-- confuses time coordinates -->
+        <remove name="dstart" type="variable"/>
+    </netcdf>
+            <protoDataset choice="Penultimate">
+                <netcdf xmlns="http://www.unidata.ucar.edu/namespaces/netcdf/ncml-2.2">
+                    <attribute name="title" value="Chesapeake Bay Operational Forecast System (CBOFS): Nowcast - Fields"/>
+                    <attribute name="summary" value="The wind data used to run CBOFS are based on the National Weather Service (NWS)/Real Time Mesoscale Analysis (RTMA) winds (for the nowcast) and an interpolation of the NWS North American Mesoscale (NAM)-12 atmospheric forecast model data (for the forecast). The NWS Global Forecasting System winds serve as backup winds for both the nowcast and forecast runs. Additionally, CBOFS relies on Extratropical Storm Surge forecasts, CO-OPS' real-time water level, temperature and salinity observations, USGS river data, and the Global Real-Time Ocean Forecast System. The new CBOFS grid has 332 x 291 points in the horizontal. The finest grid resolutions in the x- and y- directions are 34m and 29m, respectively, and the coarsest resolutions are 4895m and 3380m, respectively. The vertical grid follows the terrain and consists of 20 model levels. The CBOFS model domain was designed to include the whole of the Chesapeake Bay and a piece of the shelf to allow a realistic interaction between the shelf and the entrance to the Bay. The CBOFS grid and spatial extent is indicated above. The bathymetry of the Chesapeake Bay is indicated below. Note that the greatest resolution of the CBOFS grid corresponds with the major channels of the bay. CBOFS runs on NOAA's High Performance Computers (HPC) in a new Coastal Ocean Modeling Framework (COMF) developed by CO-OPS. As a result, CBOFS has direct access to NWS operational meteorological products that it needs to run reliably. Nowcast and forecast guidance cycles are run 4 times a day (every 6 hours)."/>
+                    <attribute name="project" value="NOAA/NOS/CO-OPS"/>
+                    <attribute name="institution" value="NOAA/NOS/CO-OPS"/>
+                    <attribute name="acknowledgement" value="All products from the National Ocean Service"/>
+                    <attribute name="info_url" value="https://tidesandcurrents.noaa.gov/ofs/cbofs/cbofs_info.html"/>
+                    <attribute name="geospatial_lat_min" value="36.19036"/>
+                    <attribute name="geospatial_lat_max" value="39.61182"/>
+                    <attribute name="geospatial_lat_resolution" value="0.00036 degree_north"/>
+                    <attribute name="geospatial_lat_units" value="degree_north"/>
+                    <attribute name="geospatial_lon_min" value="-81.17436"/>
+                    <attribute name="geospatial_lon_max" value="-74.23078"/>
+                    <attribute name="geospatial_lon_resolution" value="0.00758 degree_east"/>
+                    <attribute name="geospatial_lon_units" value="degree_east"/>
+                    <attribute name="platform_vocabulary" value="GCMD Platform Keywords" xml:base="partials/global_attributes.xml"/><attribute name="standard_name_vocabulary" value="CF Standard Name Table v69" xml:base="partials/global_attributes.xml"/><attribute name="Conventions" value="CF-1.7, ACDD-1.3, IOOS-1.2" xml:base="partials/global_attributes.xml"/><attribute name="license" value="These data may be redistributed and used without restriction. " xml:base="partials/global_attributes.xml"/><attribute name="keywords_vocabulary" value="Global Change Master Directory (GCMD) Earth Science Keywords; CF Standard Name Table (v69, 15 October 2019)" xml:base="partials/global_attributes.xml"/><attribute name="naming_authority" value="us.ioos.eds" xml:base="partials/global_attributes.xml"/>
+                    <attribute name="publisher_name" value="U.S. Integrated Ocean Observing System (IOOS)" xml:base="partials/publisher_ioos.xml"/><attribute name="publisher_email" value="data.ioos@noaa.gov" xml:base="partials/publisher_ioos.xml"/><attribute name="publisher_address" value="1315 East-West Highway" xml:base="partials/publisher_ioos.xml"/><attribute name="publisher_city" value="Silver Spring" xml:base="partials/publisher_ioos.xml"/><attribute name="publisher_zipcode" value="20910" xml:base="partials/publisher_ioos.xml"/><attribute name="publisher_state" value="Maryland" xml:base="partials/publisher_ioos.xml"/><attribute name="publisher_country" value="USA" xml:base="partials/publisher_ioos.xml"/><attribute name="publisher_phone" value="(240) 533-9444" xml:base="partials/publisher_ioos.xml"/><attribute name="publisher_type" value="institution" xml:base="partials/publisher_ioos.xml"/><attribute name="publisher_url" value="http://ioos.noaa.gov" xml:base="partials/publisher_ioos.xml"/>
+                    <attribute name="creator_name" value="National Ocean Service" xml:base="partials/creator_nos.xml"/><attribute name="creator_email" value="nos.info@noaa.gov" xml:base="partials/creator_nos.xml"/><attribute name="creator_institution" value="National Ocean Service" xml:base="partials/creator_nos.xml"/><attribute name="creator_address" value="1305 East West Highway" xml:base="partials/creator_nos.xml"/><attribute name="creator_city" value="Silver Spring" xml:base="partials/creator_nos.xml"/><attribute name="creator_zipcode" value="20910" xml:base="partials/creator_nos.xml"/><attribute name="creator_state" value="MD" xml:base="partials/creator_nos.xml"/><attribute name="creator_country" value="USA" xml:base="partials/creator_nos.xml"/><attribute name="creator_sector" value="gov_federal" xml:base="partials/creator_nos.xml"/><attribute name="creator_type" value="institution" xml:base="partials/creator_nos.xml"/><attribute name="creator_url" value="https://oceanservice.noaa.gov/" xml:base="partials/creator_nos.xml"/>
+                    <attribute name="contributor_name" value="RPS" xml:base="partials/contributor_rps.xml"/><attribute name="contributor_email" value="devops@rpsgroup.com" xml:base="partials/contributor_rps.xml"/><attribute name="contributor_role" value="editor" xml:base="partials/contributor_rps.xml"/><attribute name="contributor_role_vocabulary" value="http://vocab.nerc.ac.uk/collection/G04/current/" xml:base="partials/contributor_rps.xml"/><attribute name="contributor_url" value="rpsgroup.com" xml:base="partials/contributor_rps.xml"/>
+                    <attribute name="Conventions" value="CF-1.7, ACDD-1.3, IOOS-1.2" xml:base="partials/roms_attributes_global.xml"/><attribute name="keywords" value="Oceans &gt; Ocean Circulation &gt; Ocean Currents, eastward_sea_water_velocity, northward_sea_water_velocity, upward_sea_water_velocity" xml:base="partials/roms_attributes_global.xml"/><attribute name="source" value="ROMS" xml:base="partials/roms_attributes_global.xml"/><attribute name="platform" value="Models/Analyses &gt; &gt; Operational Models" xml:base="partials/roms_attributes_global.xml"/><attribute name="platform_vocabulary" value="GCMD Platform Keywords" xml:base="partials/roms_attributes_global.xml"/><attribute name="featureType" value="grid" xml:base="partials/roms_attributes_global.xml"/><attribute name="cdm_data_type" value="Grid" xml:base="partials/roms_attributes_global.xml"/><attribute name="processing_level" value="forecast_model" xml:base="partials/roms_attributes_global.xml"/>
+                    <variable name="angle" xml:base="partials/roms_attributes_variables.xml">
+        <attribute name="standard_name" type="String" value="angle_of_rotation_from_east_to_x"/>
+        <attribute name="coverage_content_type" type="String" value="modelResult"/>
+    </variable><variable name="f" xml:base="partials/roms_attributes_variables.xml">
+        <attribute name="standard_name" type="String" value="coriolis_parameter"/>
+        <attribute name="coverage_content_type" type="String" value="modelResult"/>
+    </variable><variable name="h" xml:base="partials/roms_attributes_variables.xml">
+        <attribute name="standard_name" type="String" value="sea_floor_depth_below_geoid"/>
+        <attribute name="coverage_content_type" type="String" value="modelResult"/>
+    </variable><variable name="Pair" xml:base="partials/roms_attributes_variables.xml">
+        <attribute name="standard_name" type="String" value="air_pressure_at_mean_sea_level"/>
+        <attribute name="coverage_content_type" type="String" value="modelResult"/>
+    </variable><variable name="salt" xml:base="partials/roms_attributes_variables.xml">
+        <attribute name="standard_name" type="String" value="sea_water_salinity"/>
+        <attribute name="units" type="String" value="1e-3"/>
+        <attribute name="coverage_content_type" type="String" value="modelResult"/>
+    </variable><variable name="temp" xml:base="partials/roms_attributes_variables.xml">
+        <attribute name="standard_name" type="String" value="air_potential_temperature"/>
+        <attribute name="coverage_content_type" type="String" value="modelResult"/>
+    </variable><variable name="u" xml:base="partials/roms_attributes_variables.xml">
+        <attribute name="standard_name" type="String" value="eastward_sea_water_velocity"/>
+        <attribute name="coverage_content_type" type="String" value="modelResult"/>
+    </variable><variable name="v" xml:base="partials/roms_attributes_variables.xml">
+        <attribute name="standard_name" type="String" value="northward_sea_water_velocity"/>
+        <attribute name="coverage_content_type" type="String" value="modelResult"/>
+    </variable><variable name="w" xml:base="partials/roms_attributes_variables.xml">
+        <attribute name="standard_name" type="String" value="upward_sea_water_velocity"/>
+        <attribute name="coverage_content_type" type="String" value="modelResult"/>
+    </variable><variable name="zeta" xml:base="partials/roms_attributes_variables.xml">
+        <attribute name="standard_name" type="String" value="sea_surface_height_above_geoid"/>
+        <attribute name="coverage_content_type" type="String" value="modelResult"/>
+    </variable><variable name="Uwind" xml:base="partials/roms_attributes_variables.xml">
+        <attribute name="standard_name" type="String" value="eastward_wind"/>
+    </variable><variable name="Vwind" xml:base="partials/roms_attributes_variables.xml">
+        <attribute name="standard_name" type="String" value="northward_wind"/>
+        <attribute name="coverage_content_type" type="String" value="modelResult"/>
+    </variable>
+                    <remove name="ocean_time" type="variable" xml:base="partials/roms_collection_outer.xml"/>
+                </netcdf>
+            </protoDataset>
+        </featureCollection>
+    </dataset>
+</catalog>
+
+
