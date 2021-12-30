@@ -1,5 +1,6 @@
 package com.rpsgroup;
 
+import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
@@ -20,14 +21,16 @@ public class HarvesterMain {
 	private HttpHandler http = new HttpHandler();
 	
 	private FileManager file = new FileManager();
+	private NetcdfMetadataManager ncMetaMgr = new NetcdfMetadataManager();
+	
 	private Logger log = LoggerFactory.getLogger(HarvesterMain.class);
 	
 	public static void main(String[] args) throws MalformedURLException, Exception {
 		run(props.ncUrl);
 	}
 	
-	private String getNcCopyCommand(String url) {
-		return props.ncCopyCommand + " " + url + " " + file.getNC4Outfile().toString();
+	private String[] getNcCopyCommand(String url) {
+		return new String[] { props.ncCopyCommand, url, file.getNC4Outfile().toString() };
 	}
 	
 	private static void run(String url) throws MalformedURLException, Exception {
@@ -53,15 +56,23 @@ public class HarvesterMain {
 			if (remoteModTime.after(mostRecentLocal) || firstRun) {
 				runner.log.info("Downloading latest data...");
 				
-				String command = runner.getNcCopyCommand(url);
+				String[] cmdTokens = runner.getNcCopyCommand(url);
+				
+				String command = String.join(" ", cmdTokens);
 				Process copyProc = Runtime.getRuntime().exec(command);
 				
 				int exitCode = copyProc.waitFor();
 				
 				if (exitCode != 0) {
 					runner.log.error("Fatal Error execing '" + command + "'. Exit code: " + Integer.toString(exitCode));
+				
 				} else {
 					runner.log.info("Successfully exec'd '" + command + "'.");
+					
+					String ncPath = cmdTokens[cmdTokens.length - 1];
+					runner.ncMetaMgr.addAcks(new File(ncPath));
+					
+					runner.log.info("Updated acknowledgments in netCDF metadata for: " + ncPath);
 				}
 				
 				while (runner.file.getFileCount() > props.storageMaxCount) {	
